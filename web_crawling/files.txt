@@ -1,1 +1,2 @@
 https://drive.google.com/drive/folders/16Z-QFw20ZpZ4hkQ-GtxDaSgzy3w82UvW
+CLIENT_ID, CLIENT_SECRET = "KcavGNB3lps84cp5kzJp", "CpZgLBr_NB"
