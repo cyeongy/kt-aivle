@@ -40,4 +40,5 @@ def gcd(a, b):
 
 import math
 
-print(gcd(5, 15))
+def module_test():
+    print(__name__)
