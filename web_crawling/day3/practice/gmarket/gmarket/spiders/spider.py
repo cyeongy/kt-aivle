@@ -15,7 +15,7 @@ class GMSpider(scrapy.Spider):
             item['link'] = response.url
             yield item
 
-    def parser(self, response):
+    def parse(self, response):
         links = response.xpath('//*[@id="gBestWrap"]/div/div[3]/div/ul/li/a/@href').extract()
         for link in links[:20]:
             yield scrapy.Request(link, callback=self.parse_content)
