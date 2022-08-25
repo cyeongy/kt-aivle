@@ -1,13 +1,22 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import numpy as np
 
-# 가능한 font list 확인
-import matplotlib.font_manager as fm
-f = [f.name for f in fm.fontManager.ttflist]
-print(f)
-print(mpl.get_configdir())
+x = np.linspace(0, 1, 50)
+p1 = np.power(x, 2)
+p2 = np.power(1-x, 2)
 
-# 확인 이후
-plt.rc('font', family='Malgun Gothic')
+plt.plot(x, 1-p1-p2)
+plt.xlabel('P_i')
+plt.ylabel('Gini Index')
+plt.grid()
+plt.xlim(0, 1)
+plt.xticks([0.1 * i for i in range(11)])
 
-fm.findSystemFonts()
+plt.axvline(.5, color='red')
+plt.axvline(.48, color='green')
+plt.axvline(.176, color='purple')
+plt.show()
+
+
+
