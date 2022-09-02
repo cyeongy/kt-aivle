@@ -3,16 +3,37 @@ import pandas as pd
 
 
 def trans_datetime(temp):
+    """
+    데이터 프레임의 datetime을 '일시'라는 컬럼명으로 통일, datetime 전환
+    2021 01 01 24 -> 2021 01 02 00 으로 바꾸는 작업도 진행한다.
+    이유: 01~24시를 -1로 맞춰주게되면 00시를 하루의 첫 번째 시로, N시를 하루의 N번째 시간으로 맞추게 된다.
+    :param temp: DataFrame[object]
+    :return: datetime64[ns]
+    """
     if '측정일시' in list(temp.columns):
         temp.rename(columns={'측정일시': '일시'}, inplace=True)
 
     if temp['일시'].dtype == "datetime64[ns]":
+        assert "이미 변환되어있습니다."
         return
     try:
-        temp['일시'] = temp['일시'].apply(lambda x: pd.to_datetime(str(x)[:8], format='%Y%m%d') + (
-            timedelta(days=1, hours=0) if x % 100 == 24 else timedelta(hours=x % 100)))
+        temp['일시'] = temp['일시'].apply(
+            lambda x: pd.to_datetime(str(x)[:8], format='%Y%m%d') + (timedelta(days=1, hours=0) if x % 100 == 24
+                                                                     else timedelta(hours=x % 100)))
     except:
         temp['일시'] = temp['일시'].apply(lambda x: pd.to_datetime(x))
+
+
+def __drop_columns(df, type):
+    """
+    필요없는 컬럼 제거
+    :param df: DataFrame : 제거할 컬럼을 가지고 있는 데이터프레임(air or weather)
+    :param type: string : "air" or "weather"
+    :return: None (데이터 프레임 편집)
+    """
+    columns = {'weather': ['지점', '지점명'],
+               'air': ['지역', '망', '측정소코드', '측정소명', '주소']}
+    df.drop(columns=columns[type], axis=1, inplace=True)
 
 
 def __drop_ground_condition(weather):
@@ -84,7 +105,7 @@ def __make_climate_code_dummies(weather):
         weather[f'현상번호({i})'] = 0
     for _idx, _row in weather.iterrows():
         if _row.isna()['현상번호(국내식)']:
-            weather['현상번호(0)'] = 1
+            weather.loc[_idx, '현상번호(0)'] = 1
             continue
 
         _number = int(_row['현상번호(국내식)'])
@@ -119,8 +140,8 @@ def __make_cloud_form_dummies(temp):
     if '운형(Ci)' in list(temp.columns):
         return
 
-    for form in ['운형(Ci)', '운형(Cc)', '운형(Cs)', '운형(Ac)', '운형(As)', '운형(Ns)', '운형(Sc)', '운형(St)', '운형(Cu)',
-                 '운형(Cb)']:
+    for form in ['운형(Ci)', '운형(Cc)', '운형(Cs)', '운형(Ac)', '운형(As)',
+                 '운형(Ns)', '운형(Sc)', '운형(St)', '운형(Cu)', '운형(Cb)']:
         temp[form] = 0
 
     for _idx, _row in temp.iterrows():
@@ -135,7 +156,10 @@ def __make_cloud_form_dummies(temp):
 
 
 def __fill_cloud_low(temp):
-    temp.drop(columns=['최저운고(100m )'], inplace=True)
+    try:
+        temp.drop(columns=['최저운고(100m )'], inplace=True)
+    except:
+        assert "최저운고(100m ) 없음"
 
 
 def fill_weather(weather):
@@ -144,6 +168,11 @@ def fill_weather(weather):
     :param weather: DataFrame
     :return: None (데이터프레임 자체를 수정)
     '''
+    # 필요 없는 컬럼(제거)
+    __drop_columns(weather, 'weather')
+
+    # '일시' to datetime으로 변경
+    trans_datetime(weather)
 
     # 지면상태(지면상태코드)는 전부 NaN이므로 예측에 사용할 수 없음.
     __drop_ground_condition(weather)
