@@ -63,39 +63,6 @@ def Detect_edge(image):
     return _image
 
 
-def Make_image(src_path, dst_path, title, gray, sharp, edge):
-    """
-
-    :param src_path: 전처리 이전 데이터 경로
-    :param dst_path: 전처리 데이터 저장 경로
-    :param title: 크롭 이미지 타이틀 포함 유무
-    :param gray: 그레이 변환 유무
-    :param sharp: 샤프닝 유무
-    :param edge: 엣지 검출 유무
-    :return:
-    """
-    import os, glob, cv2
-    from collections import defaultdict
-
-    image_list = glob.glob(os.path.join(src_path, '*.jpg'))
-    images = []
-    for path in image_list:
-        images.append(Load_image(path))
-
-    images = [Crop_image(image, title) for image in images]
-    if gray:
-        images = [Convert_gray_image(image) for image in images]
-    if sharp:
-        images = [Sharp_image(image) for image in images]
-    if edge:
-        images = [Detect_edge(image) for image in images]
-
-    for idx, image in enumerate(images):
-        cv2.imwrite(os.path.join(dst_path, f'{idx}.jpg'), image)
-
-    return
-
-
 def MakeGrayScale(FilePath):
     import glob, cv2, sys, os
 
@@ -130,6 +97,38 @@ def MakeEdgeDetection(FilePath):
         dst = cv2.Canny(src, 100, 255)
 
         cv2.imwrite(FilePath + "/edge/" + image.split(":")[-1], dst)
+
+
+def Make_image(src_path, dst_path, title, gray, sharp, edge):
+    """
+    :param src_path: 전처리 이전 데이터 경로
+    :param dst_path: 전처리 데이터 저장 경로
+    :param title: 크롭 이미지 타이틀 포함 유무
+    :param gray: 그레이 변환 유무
+    :param sharp: 샤프닝 유무
+    :param edge: 엣지 검출 유무
+    :return:
+    """
+    import os, glob, cv2
+    from collections import defaultdict
+
+    image_list = glob.glob(os.path.join(src_path, '*.jpg'))
+    images = []
+    for path in image_list:
+        images.append(Load_image(path))
+
+    images = [Crop_image(image, title) for image in images]
+    if gray:
+        images = [Convert_gray_image(image) for image in images]
+    if sharp:
+        images = [Sharp_image(image) for image in images]
+    if edge:
+        images = [Detect_edge(image) for image in images]
+
+    for idx, image in enumerate(images):
+        cv2.imwrite(os.path.join(dst_path, f'{idx}.jpg'), image)
+
+    return
 
 
 if __name__ == '__main__':
