@@ -9,6 +9,7 @@ chromedriver
 notMNIST_small.mat
 /딥러닝/02-Visual DL/2_ObjectDetection/yolov3/
 /딥러닝/02-Visual DL/2_ObjectDetection/yolov5/
-/mini_project3/video/*
-/mini_project3/test/*
-/mini_project3/model/*
+/mini_project3/video/
+/mini_project3/test/
+/mini_project3/model/
+/mini_project3/image/
