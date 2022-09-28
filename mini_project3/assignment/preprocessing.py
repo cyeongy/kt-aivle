@@ -5,8 +5,10 @@ def Load_image(image_path):
     :return: 이미지
     """
     import cv2
-    image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
+    import numpy as np
+    # image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
 
+    image = cv2.imdecode(np.fromfile(image_path, np.uint8), cv2.IMREAD_UNCHANGED)
     return image
 
 
@@ -126,8 +128,11 @@ def Make_image(src_path, dst_path, title, gray, sharp, edge):
         images = [Detect_edge(image) for image in images]
 
     for idx, image in enumerate(images):
-        cv2.imwrite(os.path.join(dst_path, f'{idx}.jpg'), image)
+        # cv2.imwrite(os.path.join(dst_path, f'{idx}.jpg'), image)
 
+        ret, img = cv2.imencode('.jpg', image)
+        with open(os.path.join(dst_path, f'{idx}.jpg'), 'w+b') as f:
+            img.tofile(f)
     return
 
 
