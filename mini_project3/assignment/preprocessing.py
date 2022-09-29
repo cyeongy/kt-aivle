@@ -21,10 +21,8 @@ def Crop_image(image, title=True):
     """
     if title:
         _image = image[0:120, 0:200]
-        pass
     else:
         _image = image[58:58 + 17, 50:50 + 95]
-        pass
 
     return _image
 
