@@ -32,14 +32,13 @@ def Sharp_image(image):
     import numpy as np
 
     sharpening_mask2 = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
-    image_sharp = cv2.filter2D(image, -1, sharpening_mask2)
 
-    return image_sharp
+    return cv2.filter2D(image, -1, sharpening_mask2)
 
 
 def Convert_gray_image(image):
     """
-    cv2(BGR) -> image(Gray)\n
+    cv2(BGR) -> image(Gray)
     :param image: 입력 이미지(cv2, BGR)
     :return image: 그레이 스케일 이미지
     """
@@ -50,15 +49,13 @@ def Convert_gray_image(image):
 
 def Detect_edge(image):
     """
-    이미지에 캐니필터 적용\n
+    이미지에 캐니필터 적용
     :param image: 원본 이미지
     :return _image: Canny Filter를 적용한 이미지
     """
     import cv2
 
-    _image = cv2.Canny(image, 100, 255)
-
-    return _image
+    return cv2.Canny(image, 100, 255)
 
 
 def MakeGrayScale(FilePath):
