@@ -31,7 +31,9 @@ def Sharp_image(image):
     import cv2
     import numpy as np
 
-    sharpening_mask2 = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
+    sharpening_mask2 = np.array([[0, -1, 0],
+                                 [-1, 5, -1],
+                                 [0, -1, 0]])
 
     return cv2.filter2D(image, -1, sharpening_mask2)
 
