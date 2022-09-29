@@ -14,7 +14,7 @@ def Load_image(image_path):
 
 def Crop_image(image, title=True):
     """
-    이미지를 크롭하는 함수\n
+    이미지를 크롭하는 함수
     :param image: 원본 이미지
     :param title: 코미디빅리그 타이틀 포함 유무, 기본은 포함
     :return: image: 크롭 된 이미지:cv2(BGR)
@@ -47,9 +47,7 @@ def Convert_gray_image(image):
     """
     import cv2
 
-    _image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    return _image
+    return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
 def Detect_edge(image):
