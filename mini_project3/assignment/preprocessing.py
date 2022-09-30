@@ -142,6 +142,6 @@ if __name__ == '__main__':
             'sharp': True,
             'edge': False}
 
-    Make_image(os.path.join(ROOT_PATH, 'train'), os.path.join(VIDEO_PATH, 'temp'), True, True, True, False)
+    Make_image(os.path.join(ROOT_PATH, 'train'), os.path.join(VIDEO_PATH, 'temp'), True, False, False, False)
 
     # print(glob.glob(os.path.join(ROOT_PATH, 'train', '*.jpg')))

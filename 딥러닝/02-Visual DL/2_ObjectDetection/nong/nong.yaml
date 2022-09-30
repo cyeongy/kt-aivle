@@ -1,7 +1,0 @@
-path: ./nong
-train: images/train
-val: images/train
-test:
-
-nc: 5
-names: [ 'kkwaenggwari', 'book', 'janggu', 'jing', 'sogo' ]
