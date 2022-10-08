@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="PublishConfigData" autoUpload="Always" serverName="root@6.tcp.ngrok.io:11505 (3)" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="root@6.tcp.ngrok.io:11505">
@@ -20,6 +21,14 @@
         <serverdata>
           <mappings>
             <mapping deploy="/content/drive/MyDrive/kt-aivle/NLP/DAY5" local="$PROJECT_DIR$" />
+=======
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@6.tcp.ngrok.io:13371 password" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="root@6.tcp.ngrok.io:13371 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_817" local="$PROJECT_DIR$" />
+>>>>>>> 3f8d9c3 (Add: gpu check code)
           </mappings>
         </serverdata>
       </paths>
