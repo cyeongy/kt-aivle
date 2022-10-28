@@ -3,49 +3,61 @@ import matplotlib as mpl
 import numpy as np
 import sys
 import copy
+from collections import deque, defaultdict, Counter
+from fractions import Fraction
+import time
+from heapq import heappush as push, heappop as pop
 
-# x = np.linspace(0, 1, 50)
-# p1 = np.power(x, 2)
-# p2 = np.power(1-x, 2)
-#
-# plt.plot(x, 1-p1-p2)
-# plt.xlabel('P_i')
-# plt.ylabel('Gini Index')
-# plt.grid()
-# plt.xlim(0, 1)
-# plt.xticks([0.1 * i for i in range(11)])
-#
-# plt.axvline(.5, color='red')
-# plt.axvline(.48, color='green')
-# plt.axvline(.176, color='purple')
-# plt.show()
 
-N = int(sys.stdin.readline())
+class Graph:
+    def __init__(self, vertices):
+        # V : 노드 개수
+        self.V = vertices
+        self.graph = defaultdict(list)
 
-arr = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
+    # 간선 추가
+    def addEdge(self, v, w):
+        self.graph[v].append(w)
+        self.graph[w].append(v)
 
-bandwidth = {0: [0, 1], 1: [0, 1, 2], 2: [1, 2]}
+    def isCyclicUtil(self, v, visited, parent):
 
-Max = [[0, 0, 0], [0, 0, 0]]
-Min = [[0, 0, 0], [0, 0, 0]]
+        # 방문 기록 남기기
+        visited[v] = True
+        print(v+1)
+        for i in self.graph[v]:
+            # 방문하지 않은 노드 확인
+            if visited[i] == False:
+                if (self.isCyclicUtil(i, visited, v)):
+                    return True
+            # 부모 제외하고 재방문가능하면 무한루프 가능함
+            elif parent != i:
+                if v == 1:
+                    continue
+                return True
 
-for i in range(3):
-    Max[0][i] = arr[0][i]
-    Min[0][i] = arr[0][i]
+        return False
 
-Max[0] = copy.deepcopy(arr[0])
-Min[0] = copy.deepcopy(arr[0])
+    def isCyclic(self):
 
-for depth in range(1, N):
-    for i in range(3):
-        Max[1][i] = arr[depth][i]
-        Min[1][i] = arr[depth][i]
-    for idx in range(3):
-        Max[1][idx] += max(list(Max[0][b] for b in bandwidth[idx]))
-        Min[1][idx] += min(list(Min[0][b] for b in bandwidth[idx]))
-        pass
-    for i in range(3):
-        Max[0][i] = Max[1][i]
-        Min[0][i] = Min[1][i]
+        visited = [False] * (self.V)
 
-print(max(Max[1]), min(Min[1]))
+        # 방문하지 않은 노드 확인 1번부터 시작
+        for i in range(1):
+            if visited[i] == False:
+                if (self.isCyclicUtil(i, visited, -1)):
+                    return True
+
+        return False
+
+
+N, M = map(int, sys.stdin.readline().split())
+g = Graph(N)
+for _ in range(M):
+    u, v = map(int, sys.stdin.readline().split())
+    g.addEdge(u - 1, v - 1)
+
+if g.isCyclic():
+    print("YES")
+else:
+    print("NO")
