@@ -19,4 +19,4 @@ for a in A:
         answer = "YES"
 
 
-print(answer)
+print(answer)p
