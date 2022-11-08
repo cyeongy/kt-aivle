@@ -7,7 +7,12 @@ from collections import deque, defaultdict, Counter
 from fractions import Fraction
 import time
 from heapq import heappush as push, heappop as pop
+from functools import reduce
 
+arr = [[1, 1, 1], [1, 0, 0]]
+
+for a in arr:
+    print(len(a) - reduce(lambda sum, cur: sum + cur, a, 0))
 
 class Graph:
     def __init__(self, vertices):
