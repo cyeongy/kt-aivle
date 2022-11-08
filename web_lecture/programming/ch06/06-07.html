@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>06-07</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <meta charset="utf-8">
+    <title>06-07</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-  <div id="account">
-    잔고 : <input type="text"  />
-    <br />
-    회원님의 등급 : 
+<div id="account">
+    잔고 : <input type="text" v-model="balance"/>
+    <br/>
+    회원님의 등급 :
     <span v-if="balance >= 1000000">Gold</span>
     <span v-else-if="balance >= 500000">Silver</span>
     <span v-else-if="balance >= 200000">Bronze</span>
     <span v-else>Basic</span>
-  </div>
-  <script type="text/javascript">
- 
-  </script>
+</div>
+<script type="text/javascript">
+    var simple1 = new Vue({
+        el: '#account',
+        data: {balance: 0,
+        },
+        beforeCreate: function () {
+            console.log("beforeCreate");
+        },
+        created: function () {
+            console.log("created");
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+        destroyed: function () {
+            console.log("destroyed");
+        },
+    });
+
+    function call2() {
+        alert("call2")
+        simple1.$destroy();
+    }
+</script>
 </body>
 </html>

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8">
-  <title>06-04</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <meta charset="utf-8">
+    <title>06-04</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-  <div id="simple">
-    <input type="text"  placeholder="이름을 입력하세요" />
-    <br />
-    입력된 이름 : <h2></h2>
-  </div>
-  <script type="text/javascript">
+<div id="simple">
+    <input type="text" placeholder="이름을 입력하세요" v-model="name"/>
+    <br/>
+    입력된 이름 : <h2 v-html="name"></h2>
+</div>
+<script type="text/javascript">
     var twoway = new Vue({
-      el : '#simple',
-      data : {
-          
-      }
+        el: '#simple',
+        data: {
+            name: ''
+        }
     })
-  </script>
+</script>
 </body>
 </html>

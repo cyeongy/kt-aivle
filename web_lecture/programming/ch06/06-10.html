@@ -20,14 +20,14 @@
             </tr>
 		</thead>
         <tbody id="contacts">
-            <template >
+            <template v-for="(contact, index) in contacts">
             <tr>
                 <td>{{contact.no}}</td>
                 <td>{{contact.name}}</td>
                 <td>{{contact.tel}}</td>
                 <td>{{contact.address}}</td>
             </tr>
-            <tr class="divider" >
+            <tr class="divider" v-if="index % 5 === 4">
                 <td colspan="4"></td>
             </tr>
             </template>
@@ -52,7 +52,11 @@
             { "no": 91, "name": "소진", "tel": "010-3456-8290", "address": "서울" }
         ]
     }
+    var list = new Vue({
+        el: "#exmaple",
+        data: model,
 
+    })
    
     </script>
 </body>
