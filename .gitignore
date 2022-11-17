@@ -18,3 +18,5 @@ notMNIST_small.mat
 **/data/
 **/add_data/
 **/raw_data/
+
+.idea/dbnavigator.xml
